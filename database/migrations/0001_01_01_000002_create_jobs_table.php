@@ -13,12 +13,13 @@ return new class extends Migration
     {
         Schema::create('jobs', function (Blueprint $table) {
             $table->id();
-            $table->string('queue')->index();
-            $table->longText('payload');
-            $table->unsignedTinyInteger('attempts');
-            $table->unsignedInteger('reserved_at')->nullable();
-            $table->unsignedInteger('available_at');
-            $table->unsignedInteger('created_at');
+            // $table->unsignedBigInteger('employer_id');
+            // $table->foreign('employer_id')->references('id')->on('employers');
+            $table->foreignIdFor(\App\Models\Employer::class);
+            $table->string('title');
+            $table->string('salary');
+            $table->string('description');
+            $table->timestamps();
         });
 
         Schema::create('job_batches', function (Blueprint $table) {
