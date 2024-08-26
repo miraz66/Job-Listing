@@ -8,17 +8,25 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-    $tags = Tag::find(1);
+    return inertia('Home/Index');
+});
 
-    dd($tags->jobs);
-
-
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
+Route::get('/jobs', function () {
+    return inertia('Jobs/Index', [
+        //paginate(10)
+        'jobs' => Job::paginate(10),
+        'tags' => Tag::all(),
     ]);
+});
+
+Route::get('/jobs/{job}', function (Job $job) {
+    return inertia('Jobs/Show', [
+        'job' => $job,
+    ]);
+});
+
+Route::get('/contact', function () {
+    return inertia('Contact/Index');
 });
 
 Route::get('/dashboard', function () {
