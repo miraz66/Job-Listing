@@ -14,8 +14,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory(100)->create();
-        Job::factory(100)->create();
 
         // create admin user
         User::factory()->create([
@@ -23,5 +21,8 @@ class DatabaseSeeder extends Seeder
             'email' => '0dJqE@example.com',
             'is_admin' => true
         ]);
+
+        $this->call(JobSeeder::class);
+        $this->call(UserSeeder::class);
     }
 }
