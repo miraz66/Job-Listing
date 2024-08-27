@@ -14,10 +14,9 @@ Route::get('/', function () {
 });
 
 Route::get('/jobs', function () {
-    $jobs = Job::with('employer', 'tags')->paginate(10);
-
+    $jobs = Job::with('employer', 'tags')->latest()->paginate(10);
     return inertia('Jobs/Index', [
-        'jobs' =>  $jobs,
+        'jobs' => $jobs,
     ]);
 });
 
@@ -27,7 +26,35 @@ Route::get('/jobs/create', function (Job $job) {
 });
 
 
-Route::post('/jobs', function (Request $request) {});
+Route::post('/jobs', function (Request $request) {
+    // Validate the request data
+    // $request->validate([
+    //     'title' => 'required',
+    //     'description' => 'required',
+    //     'salary' => 'required|numeric',
+    // ]);
+
+    // Job::create(array_merge(
+    //     $request->all(),
+    //     ['employer_id' => 2]
+    // ));
+
+    $job = Job::create(array_merge(
+        $request->validate([
+            'title' =>  'required',
+            'description' => 'required',
+            'salary' => 'required|numeric',
+        ], [
+            'title.required' => 'The job title is required.',
+            'description.required' => 'The job description is required.',
+            'salary.required' => 'The salary is required.',
+        ]),
+        ['employer_id' => 2]
+    ));
+
+    return redirect('/jobs');
+});
+
 
 Route::get('/jobs/{job}', function (Job $job) {
     $job->load('employer', 'tags');

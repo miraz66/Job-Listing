@@ -26,6 +26,7 @@ export default function Index({ jobs }) {
             </p>
           </div>
           <div className="mt-10">
+            {}
             {jobs.data.map((job) => (
               <div
                 key={job.id}
