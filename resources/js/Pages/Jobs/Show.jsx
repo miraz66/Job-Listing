@@ -1,3 +1,4 @@
+import { Link } from '@inertiajs/react';
 import React from 'react';
 
 export default function Show({ job }) {
@@ -16,7 +17,14 @@ export default function Show({ job }) {
                   Pays $ {job.salary} per years
                 </span>
               </p>
-              <p className="mt-2 text-gray-500">{job.description}</p>
+              <p className="mt-2 mb-10 text-gray-500">{job.description}</p>
+
+              <Link
+                href={`/jobs/${job.id}/edit`}
+                className="bg-gray-800 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
+              >
+                Edit Job
+              </Link>
             </div>
           </div>
         </div>

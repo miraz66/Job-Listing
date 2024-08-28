@@ -39,7 +39,7 @@ Route::post('/jobs', function (Request $request) {
     //     ['employer_id' => 2]
     // ));
 
-    $job = Job::create(array_merge(
+    Job::create(array_merge(
         $request->validate([
             'title' =>  'required',
             'description' => 'required',
@@ -62,6 +62,24 @@ Route::get('/jobs/{job}', function (Job $job) {
     return inertia('Jobs/Show', [
         'job' => $job,
     ]);
+});
+
+Route::get('/jobs/{job}/edit', function (Job $job) {
+    return inertia('Jobs/Edit', [
+        'job' => $job,
+    ]);
+});
+
+Route::put('/jobs/{job}', function (Job $job, Request $request) {
+    $job = Job::findOrFail($job->id);
+
+    $job->update($request->validate([
+        'title' =>  'required',
+        'description' => 'required',
+        'salary' => 'required|numeric',
+    ]));
+
+    return redirect('/jobs' . '/' . $job->id);
 });
 
 
