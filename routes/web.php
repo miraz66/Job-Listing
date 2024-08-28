@@ -70,7 +70,7 @@ Route::get('/jobs/{job}/edit', function (Job $job) {
     ]);
 });
 
-Route::put('/jobs/{job}', function (Job $job, Request $request) {
+Route::patch('/jobs/{job}', function (Job $job, Request $request) {
     $job = Job::findOrFail($job->id);
 
     $job->update($request->validate([
@@ -80,6 +80,13 @@ Route::put('/jobs/{job}', function (Job $job, Request $request) {
     ]));
 
     return redirect('/jobs' . '/' . $job->id);
+});
+
+
+Route::delete('/jobs/{job}', function (Job $job) {
+    $job->delete();
+
+    return redirect('/jobs');
 });
 
 

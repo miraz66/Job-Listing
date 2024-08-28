@@ -1,9 +1,8 @@
-import { useForm } from '@inertiajs/react';
+import { router, useForm } from '@inertiajs/react';
 import React from 'react';
 
 export default function Edit({ job }) {
-  // job edit
-  const { data, setData, put, processing, errors } = useForm({
+  const { data, setData, patch, processing, errors, reset } = useForm({
     title: job.title,
     salary: job.salary,
     description: job.description,
@@ -11,7 +10,8 @@ export default function Edit({ job }) {
 
   const submit = (e) => {
     e.preventDefault();
-    put(`/jobs/${job.id}`);
+
+    patch(`/jobs/${job.id}`);
   };
 
   return (
@@ -111,6 +111,7 @@ export default function Edit({ job }) {
           <button
             type="button"
             className="text-sm font-semibold leading-6 text-gray-900"
+            onClick={() => reset()}
           >
             Cancel
           </button>
