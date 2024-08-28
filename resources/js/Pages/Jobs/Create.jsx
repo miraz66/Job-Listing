@@ -1,8 +1,9 @@
 import Headers from '@/Components/Headers';
 import { Head, useForm } from '@inertiajs/react';
+import clsx from 'clsx';
 
 export default function Create() {
-  const { data, setData, post, processing, errors } = useForm({
+  const { data, setData, post, errors, isDirty } = useForm({
     title: '',
     salary: '',
     description: '',
@@ -113,14 +114,21 @@ export default function Create() {
             <button
               type="button"
               className="text-sm font-semibold leading-6 text-gray-900"
+              onClick={() => window.history.back()}
             >
-              Cancel
+              Back
             </button>
             <button
               type="submit"
-              className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              className={clsx(
+                'rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm',
+                !isDirty
+                  ? 'opacity-50 cursor-not-allowed'
+                  : 'hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
+              )}
+              disabled={!isDirty}
             >
-              Post
+              Save
             </button>
           </div>
         </form>

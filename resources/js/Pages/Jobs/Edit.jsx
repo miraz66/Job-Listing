@@ -1,8 +1,9 @@
 import { router, useForm } from '@inertiajs/react';
+import clsx from 'clsx';
 import React from 'react';
 
 export default function Edit({ job }) {
-  const { data, setData, patch, processing, errors, reset } = useForm({
+  const { data, setData, patch, processing, errors, reset, isDirty } = useForm({
     title: job.title,
     salary: job.salary,
     description: job.description,
@@ -108,16 +109,32 @@ export default function Edit({ job }) {
         </div>
 
         <div className="mt-6 flex items-center justify-end gap-x-6">
-          <button
-            type="button"
-            className="text-sm font-semibold leading-6 text-gray-900"
-            onClick={() => reset()}
-          >
-            Cancel
-          </button>
+          {isDirty ? (
+            <button
+              type="button"
+              className="text-sm font-semibold leading-6 text-gray-900"
+              onClick={() => reset()}
+            >
+              Cancel
+            </button>
+          ) : (
+            <button
+              type="button"
+              className="text-sm font-semibold leading-6 text-gray-900"
+              onClick={() => window.history.back()}
+            >
+              Back
+            </button>
+          )}
           <button
             type="submit"
-            className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            className={clsx(
+              'rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm',
+              !isDirty
+                ? 'opacity-50 cursor-not-allowed'
+                : 'hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
+            )}
+            disabled={!isDirty}
           >
             Save
           </button>

@@ -17,14 +17,24 @@ export default function Show({ job }) {
                   Pays $ {job.salary} per years
                 </span>
               </p>
-              <p className="mt-2 mb-10 text-gray-500">{job.description}</p>
+              <p className="mt-2 text-gray-500">{job.description}</p>
 
-              <Link
-                href={`/jobs/${job.id}/edit`}
-                className="bg-gray-800 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
-              >
-                Edit Job
-              </Link>
+              <div className="mt-10 flex items-center gap-x-6">
+                <button
+                  type="button"
+                  className="text-sm font-semibold leading-6 text-gray-900"
+                  onClick={() => window.history.back()}
+                >
+                  Back
+                </button>
+
+                <Link
+                  href={`/jobs/${job.id}/edit`}
+                  className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                >
+                  Edit Job
+                </Link>
+              </div>
             </div>
           </div>
         </div>
