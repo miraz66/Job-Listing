@@ -83,10 +83,11 @@ Route::patch('/jobs/{job}', function (Job $job, Request $request) {
 });
 
 
-Route::delete('/jobs/{job}', function (Job $job) {
-    $job->delete();
 
-    return redirect('/jobs');
+Route::delete('/jobs/{job}', function ($id) {
+    Job::findOrFail($id)->delete();
+
+    return redirect('/jobs')->with('success', 'Job deleted successfully');
 });
 
 

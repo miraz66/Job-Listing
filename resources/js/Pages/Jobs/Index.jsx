@@ -1,7 +1,7 @@
 import Headers from '@/Components/Headers';
 import Pagination from '@/Components/Pagination';
-import { Head, Link } from '@inertiajs/react';
-import React from 'react';
+import { Head, Link, useForm } from '@inertiajs/react';
+import React, { useState } from 'react';
 
 export default function Index({ jobs }) {
   return (
@@ -9,7 +9,7 @@ export default function Index({ jobs }) {
       <Head title="Job" />
       <Headers />
 
-      <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 my-10">
+      <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 my-10 relative">
         <div className="bg-white overflow-hidden shadow-md sm:rounded-lg border">
           <div className="flex justify-between p-10 relative">
             <h1 className="text-4xl font-bold">Job Listing</h1>
@@ -52,6 +52,10 @@ export default function Index({ jobs }) {
           </div>
           <Pagination jobs={jobs} />
         </div>
+
+        <p className="absolute translate-x-1/2 -top-8 left-1/2 text-red-500">
+          {jobs.message}
+        </p>
       </div>
     </div>
   );
