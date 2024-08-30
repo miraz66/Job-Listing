@@ -52,7 +52,7 @@ Route::post('/jobs', function (Request $request) {
         ['employer_id' => 2]
     ));
 
-    return redirect('/jobs');
+    return redirect('/jobs')->with('status', 'Job created successfully');
 });
 
 
@@ -71,7 +71,6 @@ Route::get('/jobs/{job}/edit', function (Job $job) {
 });
 
 Route::patch('/jobs/{job}', function (Job $job, Request $request) {
-    $job = Job::findOrFail($job->id);
 
     $job->update($request->validate([
         'title' =>  'required',
@@ -79,15 +78,15 @@ Route::patch('/jobs/{job}', function (Job $job, Request $request) {
         'salary' => 'required|numeric',
     ]));
 
-    return redirect('/jobs' . '/' . $job->id);
+    return redirect('/jobs' . '/' . $job->id)->with('status', 'Job updated successfully');
 });
 
 
 
-Route::delete('/jobs/{job}', function ($id) {
-    Job::findOrFail($id)->delete();
+Route::delete('/jobs/{job}', function (Job $job) {
+    $job->delete();
 
-    return redirect('/jobs')->with('success', 'Job deleted successfully');
+    return redirect('/jobs')->with('status', 'Job deleted successfully');
 });
 
 

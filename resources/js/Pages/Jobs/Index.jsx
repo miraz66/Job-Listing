@@ -1,7 +1,6 @@
 import Headers from '@/Components/Headers';
 import Pagination from '@/Components/Pagination';
-import { Head, Link, useForm } from '@inertiajs/react';
-import React, { useState } from 'react';
+import { Head, Link } from '@inertiajs/react';
 
 export default function Index({ jobs }) {
   return (
@@ -26,7 +25,6 @@ export default function Index({ jobs }) {
             </p>
           </div>
           <div className="mt-10">
-            {}
             {jobs.data.map((job) => (
               <div
                 key={job.id}
@@ -38,10 +36,9 @@ export default function Index({ jobs }) {
                       {job.employer.name}
                     </h1>
                     <p className="text-gray-800 text-lg">
-                      {' '}
                       {job.title}:{' '}
                       <span className="text-gray-500">
-                        pays $ {job.salary} per years
+                        pays $ {job.salary} per year
                       </span>
                     </p>
                     <p className="mt-2 text-gray-500">{job.description}</p>
@@ -52,10 +49,6 @@ export default function Index({ jobs }) {
           </div>
           <Pagination jobs={jobs} />
         </div>
-
-        <p className="absolute translate-x-1/2 -top-8 left-1/2 text-red-500">
-          {jobs.message}
-        </p>
       </div>
     </div>
   );
