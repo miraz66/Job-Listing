@@ -1,4 +1,6 @@
 import Headers from '@/Components/Headers';
+import InputError from '@/Components/InputError';
+import TextInput from '@/Components/TextInput';
 import { Head, useForm } from '@inertiajs/react';
 import clsx from 'clsx';
 
@@ -50,9 +52,8 @@ export default function Create() {
                         className="block flex-1 border-0 bg-transparent py-1.5 pl-4 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                       />
                     </div>
-                    <span className="text-red-500 text-xs mt-2">
-                      {errors.title}
-                    </span>
+
+                    <InputError message={errors.title} className="mt-2" />
                   </div>
                 </div>
 
@@ -75,9 +76,7 @@ export default function Create() {
                       />
                     </div>
 
-                    <span className="text-red-500 text-xs mt-2">
-                      {errors.salary}
-                    </span>
+                    <InputError message={errors.salary} className="mt-2" />
                   </div>
                 </div>
 
@@ -98,9 +97,7 @@ export default function Create() {
                       defaultValue={''}
                     />
 
-                    <span className="text-red-500 text-xs mt-2">
-                      {errors.description}
-                    </span>
+                    <InputError message={errors.description} className="mt-2" />
                   </div>
                   <p className="mt-3 text-sm leading-6 text-gray-600">
                     Write a few sentences about your job.
