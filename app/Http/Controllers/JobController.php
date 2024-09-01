@@ -60,7 +60,7 @@ class JobController extends Controller
 
         return inertia('Jobs/Show', [
             'job' => $job,
-            'auth' => Auth::user(),
+            'authStatus' => Gate::allows('edit', $job)
         ]);
     }
 
@@ -69,10 +69,9 @@ class JobController extends Controller
      */
     public function edit(Job $job)
     {
-        Gate::authorize('edit-job', $job);
 
         return inertia('Jobs/Edit', [
-            'job' => $job
+            'job' => $job,
         ]);
     }
 

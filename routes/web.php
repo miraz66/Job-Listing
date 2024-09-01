@@ -13,16 +13,20 @@ Route::get('/', function () {
     ]);
 });
 
-// Route::get('/jobs', [JobController::class, 'index']);
-// Route::get('/jobs/create', [JobController::class, 'create']);
-// Route::post('/jobs', [JobController::class, 'store']);
-// Route::get('/jobs/{job}', [JobController::class, 'show']);
-// Route::get('/jobs/{job}/edit', [JobController::class, 'edit']);
-// Route::patch('/jobs/{job}', [JobController::class, 'update']);
-// Route::delete("/jobs/{job}", [JobController::class, 'destroy']);
+Route::get('/jobs', [JobController::class, 'index']);
+Route::get('/jobs/create', [JobController::class, 'create']);
+Route::post('/jobs', [JobController::class, 'store']);
+Route::get('/jobs/{job}', [JobController::class, 'show']);
+
+Route::get('/jobs/{job}/edit', [JobController::class, 'edit'])
+    ->middleware('auth')
+    ->can('edit', 'job');
+
+Route::patch('/jobs/{job}', [JobController::class, 'update']);
+Route::delete("/jobs/{job}", [JobController::class, 'destroy']);
 
 
-Route::resource('jobs', JobController::class);
+// Route::resource('jobs', JobController::class);
 Route::resource('users', UserController::class);
 
 

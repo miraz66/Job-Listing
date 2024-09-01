@@ -1,15 +1,12 @@
 import { Link, useForm } from '@inertiajs/react';
 import React from 'react';
 
-export default function Show({ job, auth }) {
+export default function Show({ job, authStatus }) {
   const { delete: destroy } = useForm();
 
   const handleDelete = () => {
     destroy(`/jobs/${job.id}`);
   };
-
-  console.log(auth.id);
-  console.log(job.employer.user_id);
 
   return (
     <>
@@ -29,14 +26,12 @@ export default function Show({ job, auth }) {
 
               <div className="mt-10 flex items-center justify-between">
                 <div className="flex items-center gap-x-6">
-                  {auth.id === job.employer.user_id && (
-                    <Link
-                      href={`/jobs/${job.id}/edit`}
-                      className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                    >
-                      Edit Job
-                    </Link>
-                  )}
+                  <Link
+                    href={`/jobs/${job.id}/edit`}
+                    className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                  >
+                    Edit Job
+                  </Link>
                   <button
                     type="button"
                     className="text-sm font-semibold leading-6 text-gray-900"
@@ -46,7 +41,7 @@ export default function Show({ job, auth }) {
                   </button>
                 </div>
 
-                {auth.id === job.employer.user_id && (
+                {authStatus && (
                   <button
                     onClick={handleDelete}
                     className="text-sm font-semibold leading-6 text-red-600 hover:text-red-500"
