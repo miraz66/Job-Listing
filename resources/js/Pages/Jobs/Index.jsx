@@ -2,11 +2,11 @@ import Headers from '@/Components/Headers';
 import Pagination from '@/Components/Pagination';
 import { Head, Link } from '@inertiajs/react';
 
-export default function Index({ jobs }) {
+export default function Index({ jobs, auth }) {
   return (
     <div>
       <Head title="Job" />
-      <Headers />
+      <Headers auth={auth} />
 
       <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 my-10 relative">
         <div className="bg-white overflow-hidden shadow-md sm:rounded-lg border">

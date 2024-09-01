@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth as FacadesAuth;
 
 class UserController extends Controller
 {
@@ -11,7 +12,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        return inertia('Users/Index');
+        return inertia('Users/Index', [
+            'auth' => FacadesAuth::check(),
+        ]);
     }
 
     /**

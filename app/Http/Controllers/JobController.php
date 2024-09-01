@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Job;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class JobController extends Controller
 {
@@ -16,6 +18,7 @@ class JobController extends Controller
 
         return inertia('Jobs/Index', [
             'jobs' => $jobs,
+            'auth' => Auth::check(),
         ]);
     }
 
@@ -57,6 +60,7 @@ class JobController extends Controller
 
         return inertia('Jobs/Show', [
             'job' => $job,
+            'auth' => Auth::user(),
         ]);
     }
 
@@ -65,9 +69,10 @@ class JobController extends Controller
      */
     public function edit(Job $job)
     {
+        Gate::authorize('edit-job', $job);
 
         return inertia('Jobs/Edit', [
-            'job' => $job,
+            'job' => $job
         ]);
     }
 
@@ -90,6 +95,8 @@ class JobController extends Controller
      */
     public function destroy(Job $job)
     {
+        Gate::authorize('edit-job', $job);
+
         $job->delete();
 
         return redirect('/jobs')->with('status', 'Job deleted successfully');
