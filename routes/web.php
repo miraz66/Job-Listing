@@ -7,6 +7,13 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
+Route::get('test', function () {
+    \Illuminate\Support\Facades\Mail::to('miraz@me.com')
+        ->send(new \App\Mail\JobPosted());
+
+    return 'Done';
+});
+
 Route::get('/', function () {
     return inertia('Home/Index', [
         'auth' => Auth::check(),
