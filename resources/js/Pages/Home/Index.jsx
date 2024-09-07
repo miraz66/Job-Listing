@@ -13,6 +13,8 @@ export default function Index({ auth }) {
           <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
             <div className="p-6 text-gray-900">
               {auth ? "You're logged in!" : "You're not logged in!"}
+              {auth ? "You're logged in!" : "You're not logged in!"}
+              {auth ? "You're logged in!" : "You're not logged in!"}
             </div>
           </div>
         </div>
