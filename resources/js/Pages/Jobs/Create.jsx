@@ -5,7 +5,7 @@ import { Head, useForm } from '@inertiajs/react';
 import clsx from 'clsx';
 
 export default function Create() {
-  const { data, setData, post, errors, isDirty } = useForm({
+  const { data, setData, post, errors, isDirty, processing } = useForm({
     title: '',
     salary: '',
     description: '',
@@ -27,11 +27,40 @@ export default function Create() {
         <form onSubmit={submit}>
           <div className="space-y-12">
             <div className="border-b border-gray-900/10 pb-12">
-              <h2 className="text-3xl font-bold">Post a new Job</h2>
-              <p className="mt-1 text-sm leading-6 text-gray-600">
-                This information will be displayed publicly so be careful what
-                you share.
-              </p>
+              <div className="flex justify-between">
+                <div>
+                  <h2 className="text-3xl font-bold">Post a new Job</h2>
+                  <p className="mt-1 text-sm leading-6 text-gray-600">
+                    This information will be displayed publicly so be careful
+                    what you share.
+                  </p>
+                </div>
+
+                {processing && (
+                  <div>
+                    <svg
+                      class="animate-spin -ml-1 mr-3 h-5 w-5 text-indigo-600"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        class="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        stroke-width="4"
+                      ></circle>
+                      <path
+                        class="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                      ></path>
+                    </svg>
+                  </div>
+                )}
+              </div>
 
               <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                 <div className="sm:col-span-4">
@@ -43,15 +72,6 @@ export default function Create() {
                   </label>
                   <div className="mt-2">
                     <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                      {/* <input
-                        id="Title"
-                        name="Title"
-                        type="text"
-                        placeholder="Job Title"
-                        onChange={(e) => setData('title', e.target.value)}
-                        className="block flex-1 border-0 bg-transparent py-1.5 pl-4 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                      /> */}
-
                       <TextInput
                         id="Title"
                         name="Title"
@@ -125,15 +145,16 @@ export default function Create() {
             >
               Back
             </button>
+
             <button
               type="submit"
               className={clsx(
                 'rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm',
-                !isDirty
+                processing
                   ? 'opacity-50 cursor-not-allowed'
                   : 'hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
               )}
-              disabled={!isDirty}
+              disabled={processing}
             >
               Save
             </button>

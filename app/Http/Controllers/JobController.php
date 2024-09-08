@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\JobPosted;
 use App\Models\Job;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Mail;
 
 class JobController extends Controller
 {
@@ -35,7 +37,7 @@ class JobController extends Controller
      */
     public function store(Request $request)
     {
-        Job::create(array_merge(
+        $job = Job::create(array_merge(
             $request->validate([
                 'title' =>  'required',
                 'description' => 'required',
@@ -47,6 +49,9 @@ class JobController extends Controller
             ]),
             ['employer_id' => 2]
         ));
+
+        Mail::to($job->employer->user)
+            ->queue(new JobPosted($job));
 
         return redirect('/jobs')->with('status', 'Job created successfully');
     }
@@ -94,7 +99,7 @@ class JobController extends Controller
      */
     public function destroy(Job $job)
     {
-        Gate::authorize('edit-job', $job);
+        // Gate::authorize('delete-job', $job);
 
         $job->delete();
 
