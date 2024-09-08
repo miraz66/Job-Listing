@@ -15,6 +15,8 @@ export default function Index({ auth }) {
               {auth ? "You're logged in!" : "You're not logged in!"}
               {auth ? "You're logged in!" : "You're not logged in!"}
               {auth ? "You're logged in!" : "You're not logged in!"}
+              {auth ? "You're logged in!" : "You're not logged in!"}
+              {auth ? "You're logged in!" : "You're not logged in!"}
             </div>
           </div>
         </div>
