@@ -3,16 +3,11 @@
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Jobs\TranslateJob;
+use App\Models\Job;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-
-// Route::get('test', function () {
-//     \Illuminate\Support\Facades\Mail::to('miraz@me.com')
-//         ->send(new \App\Mail\JobPosted());
-
-//     return 'Done';
-// });
 
 Route::get('/', function () {
     return inertia('Home/Index', [

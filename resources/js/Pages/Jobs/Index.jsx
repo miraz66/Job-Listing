@@ -12,14 +12,12 @@ export default function Index({ jobs, auth }) {
         <div className="bg-white overflow-hidden shadow-md sm:rounded-lg border">
           <div className="flex justify-between p-10 relative">
             <h1 className="text-4xl font-bold">Job Listing</h1>
-
             <Link
               href="/jobs/create"
               className="bg-indigo-600  hover:bg-indigo-500  text-white font-bold py-2 px-4 rounded"
             >
               Add Job
             </Link>
-
             <p className="absolute right-2 top-2 text-xs text-gray-500">
               Page No: {jobs.current_page}
             </p>
